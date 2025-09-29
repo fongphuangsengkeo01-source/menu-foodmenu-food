@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JAJA Food Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans Lao', sans-serif;
+      background: #f8f8f8;
+      color: #333;
+    }
+    header {
+      background: #fff;
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-size: 1.8em;
+      font-weight: 700;
+      color: #2b7a4b;
+    }
+    .cart-button {
+      background: #e44d26;
+      color: #fff;
+      border: none;
+      padding: 0.6em 1.4em;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .menu {
+      padding: 2em 1em;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5em;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 1em;
+      text-align: center;
+    }
+    .card h4 {
+      font-size: 1.2em;
+      margin: 0.5em 0 0.2em;
+      color: #2b7a4b;
+    }
+    .card p {
+      color: #e44d26;
+      font-weight: bold;
+    }
+    .card button {
+      margin-top: 0.8em;
+      padding: 0.5em 1em;
+      border: none;
+      background: #2b7a4b;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      background: #333;
+      color: #ccc;
+      padding: 1em;
+      margin-top: 2em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">JAJA FOOD</div>
+    <button class="cart-button">🛒 ສັ່ງອາຫານ</button>
+  </header>
+
+  <section class="menu">
+    <div class="menu-grid" id="menuContainer"></div>
+  </section>
+
+  <footer>
+    <p>© 2025 JAJA Food | ຕິດຕໍ່: 020 555 XXXX</p>
+  </footer>
+
+  <script>
+    const items = [
+      { img: "https://static.thairath.co.th/media/dFQROr7oWzulq5Fa5LBftOPF1hFTMlWqb9VX7wUAbn6iSJaAJLBXe44lToItSXYfARc.jpg", name: "ເຂົ້າຜັດ", price: "40.000 kip" },
+      { img: "https://i.ytimg.com/vi/_w-_VCbfNBA/sddefault.jpg", name: "ເຂົ້າປ່ຽກໄກ່", price: "45.000 kip" },
+      { img: "https://api2.krua.co/wp-content/uploads/2020/06/RT1493_ImageBanner_1140x507.jpg", name: "ກະເຜົ່າທະເລ", price: "45.000 kip" },
+      { img: "https://www.thammculture.com/wp-content/uploads/2024/01/Untitled-612.jpg", name: "ກະເຜົ່າໝູ", price: "45.000 kip" },
+      { img: "https://s359.kapook.com/r/600/auto/pagebuilder/8b9caa89-de83-4a37-9ee6-2bd07d8ada45.jpg", name: "ເຂົ້າໄຂ່ຈ້ຽວ", price: "40.000 kip" },
+      { img: "https://patternpack.org/wp-content/uploads/2024/07/4.png", name: "ເຂົ້າຫມູກ່ອບ", price: "45.000 kip" },
+      { img: "https://img.wongnai.com/p/1920x0/2017/06/22/bbf899f7ab4341dea4aec6330c2afafd.jpg", name: "ເຂົ້າມັນໄກ່", price: "45.000 kip" },
+      { img: "https://www.cookeatfood.com/wp-content/uploads/2019/03/%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%A1%E0%B8%B1%E0%B8%99%E0%B9%84%E0%B8%81%E0%B9%88%E0%B8%97%E0%B8%AD%E0%B8%94-1.jpg", name: "ເຂົ້າໄກ່ທອດ", price: "45.000 kip" },
+      { img: "https://img.wongnai.com/p/1920x0/2018/07/01/d29f2a99db3d4798bc7e11522f221278.jpg", name: "ແກ້ງກະລີ່", price: "45.000 kip" },
+    ];
+
+    const container = document.getElementById("menuContainer");
+    container.innerHTML = items.map(item => `
+      <div class="card">
+        <img src="${item.img}" alt="${item.name}">
+        <div class="card-content">
+          <h4>${item.name}</h4>
+          <p>${item.price}</p>
+          <button>ສັ່ງເລີຍ!</button>
+        </div>
+      </div>
+    `).join('');
+  </script>
+
+</body>
+</html>
